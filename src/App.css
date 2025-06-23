@@ -125,6 +125,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   background: linear-gradient(135deg, var(--color-bg-primary), var(--color-bg-secondary));
   overflow: hidden;
+  width: 100vw;
 }
 
 .hero::before {
@@ -147,6 +148,7 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--spacing-sm);
+  box-sizing: border-box;
 }
 
 .hero-title {
@@ -754,10 +756,18 @@ section {
 /* ===== AJUSTES DE RESPONSIVIDADE E MELHORIAS ===== */
 @media (max-width: 1100px) {
   .container {
-    max-width: 95vw;
-    padding: 0 var(--spacing-sm);
+    max-width: 100vw;
+    padding: 0;
+  }
+  .hero {
+    padding-left: 0;
+    padding-right: 0;
   }
   .hero-content {
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
     grid-template-columns: 1fr;
     text-align: center;
     gap: var(--spacing-lg);
@@ -775,7 +785,7 @@ section {
   .hero-description {
     margin-left: auto;
     margin-right: auto;
-    max-width: 90vw;
+    max-width: 95vw;
   }
   .hero-buttons {
     justify-content: center;
@@ -784,9 +794,11 @@ section {
     align-items: center;
   }
   .hero-video-placeholder {
-    width: 90vw;
+    width: 100vw;
     max-width: 350px;
+    min-width: 0;
     height: 220px;
+    margin: 0 auto;
   }
 }
 
@@ -846,4 +858,8 @@ section {
   .hero-video-placeholder {
     height: 140px;
   }
+}
+
+body, html {
+  overflow-x: hidden;
 }
