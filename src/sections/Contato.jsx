@@ -1,4 +1,4 @@
-import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa';
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaInstagram, FaLinkedin, FaYoutube, FaWhatsapp } from 'react-icons/fa';
 
 export default function Contato() {
   return (
@@ -22,7 +22,7 @@ export default function Contato() {
                 <FaEnvelope className="contato-icon" />
                 <div>
                   <h4>Email</h4>
-                  <p>fredson@filmmaker.com</p>
+                  <p>juniorfredson5209@gmail.com</p>
                 </div>
               </div>
               
@@ -30,7 +30,7 @@ export default function Contato() {
                 <FaPhone className="contato-icon" />
                 <div>
                   <h4>Telefone</h4>
-                  <p>+55 (11) 99999-9999</p>
+                  <p>+55 (68) 99999-3206</p>
                 </div>
               </div>
               
@@ -38,7 +38,7 @@ export default function Contato() {
                 <FaMapMarkerAlt className="contato-icon" />
                 <div>
                   <h4>Localização</h4>
-                  <p>São Paulo, Brasil</p>
+                  <p>Rio Branco - Acre, Brasil</p>
                 </div>
               </div>
             </div>
@@ -46,26 +46,27 @@ export default function Contato() {
             <div className="social-links">
               <h4>Siga-me</h4>
               <div className="social-icons">
-                <a href="#" className="social-icon">
+                <a href="https://www.instagram.com/eu_fredsonjr" className="social-icon" target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}>
                   <FaInstagram />
                 </a>
-                <a href="#" className="social-icon">
+                <a href="https://www.linkedin.com/in/fredson-junior-21b220169" className="social-icon" target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}>
                   <FaLinkedin />
                 </a>
-                <a href="#" className="social-icon">
-                  <FaYoutube />
+                <a href="https://wa.me/5568999993206" className="social-icon" target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}>
+                  <FaWhatsapp />
                 </a>
               </div>
             </div>
           </div>
 
           <div className="contato-form">
-            <form>
+            <form action="https://formspree.io/f/mqabyrgd" method="POST">
               <div className="form-group">
                 <input 
                   type="text" 
                   placeholder="Seu nome" 
                   className="form-input"
+                  name="nome"
                   required
                 />
               </div>
@@ -75,6 +76,7 @@ export default function Contato() {
                   type="email" 
                   placeholder="Seu email" 
                   className="form-input"
+                  name="email"
                   required
                 />
               </div>
@@ -84,6 +86,7 @@ export default function Contato() {
                   type="text" 
                   placeholder="Assunto" 
                   className="form-input"
+                  name="assunto"
                   required
                 />
               </div>
@@ -93,6 +96,7 @@ export default function Contato() {
                   placeholder="Sua mensagem" 
                   className="form-textarea"
                   rows="5"
+                  name="mensagem"
                   required
                 ></textarea>
               </div>
