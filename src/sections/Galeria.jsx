@@ -58,7 +58,7 @@ export default function Galeria() {
           <div className="stat-item">
             <FaCamera className="stat-icon" />
             <div className="stat-content">
-              <h3>5+</h3>
+              <h3>3+</h3>
               <p>Anos de Experiência</p>
             </div>
           </div>
