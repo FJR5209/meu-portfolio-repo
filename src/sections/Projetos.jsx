@@ -1,44 +1,59 @@
-import { FaPlay, FaExternalLinkAlt } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaPlay, FaExternalLinkAlt, FaTimes } from 'react-icons/fa';
+import ReactPlayer from 'react-player';
 // Futuramente, você pode criar um componente CardDeVideo separado
 // import CardDeVideo from '../components/CardDeVideo';
 
+function getYoutubeThumbnail(url) {
+  // Extrai o ID do vídeo do YouTube
+  const match = url.match(/(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([\w-]{11})/);
+  return match ? `https://img.youtube.com/vi/${match[1]}/hqdefault.jpg` : null;
+}
+
 export default function Projetos() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [videoUrl, setVideoUrl] = useState(null);
+
   const projetos = [
     {
       id: 1,
-      title: "Documentário Urbano",
-      category: "Documentário",
-      thumbnail: "/api/placeholder/400/300",
-      description: "Uma jornada pelas ruas da cidade através dos olhos de seus habitantes.",
-      duration: "45 min",
-      year: "2024"
+      title: "Videoclipe Musical",
+      category: "Música",
+      thumbnail: "", // Deixe vazio para gerar automaticamente
+      description: "Videoclipe para artista independente com estética cinematográfica.",
+      duration: "4 min",
+      year: "2024",
+      videoUrl: "https://www.youtube.com/watch?v=sZrMsTc6zR0"
     },
     {
       id: 2,
-      title: "Comercial Automotivo",
-      category: "Publicidade",
-      thumbnail: "/api/placeholder/400/300",
-      description: "Campanha publicitária para marca de automóveis de luxo.",
-      duration: "30 seg",
-      year: "2024"
+      title: "Videoclipe Musical",
+      category: "Música",
+      thumbnail: "", // Deixe vazio para gerar automaticamente
+      description: "Videoclipe para artista independente com estética cinematográfica.",
+      duration: "4 min",
+      year: "2024",
+      videoUrl: "https://www.youtube.com/watch?v=RydOUfPJfog"
     },
     {
       id: 3,
       title: "Videoclipe Musical",
       category: "Música",
-      thumbnail: "/api/placeholder/400/300",
+      thumbnail: "", // Deixe vazio para gerar automaticamente
       description: "Videoclipe para artista independente com estética cinematográfica.",
       duration: "4 min",
-      year: "2023"
+      year: "2024",
+      videoUrl: "https://www.youtube.com/watch?v=OU2hEyQSaLY"
     },
     {
       id: 4,
-      title: "Curta-Metragem",
-      category: "Ficção",
-      thumbnail: "/api/placeholder/400/300",
-      description: "Narrativa sobre conexões humanas em tempos digitais.",
-      duration: "15 min",
-      year: "2023"
+      title: "Videoclipe Musical",
+      category: "Música",
+      thumbnail: "", // Deixe vazio para gerar automaticamente
+      description: "Videoclipe para artista independente com estética cinematográfica.",
+      duration: "4 min",
+      year: "2024",
+      videoUrl: "https://www.youtube.com/watch?v=dIf71Ot0f0Y"
     },
     {
       id: 5,
@@ -60,6 +75,16 @@ export default function Projetos() {
     }
   ];
 
+  const openModal = (url) => {
+    setVideoUrl(url);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setVideoUrl(null);
+  };
+
   return (
     <section id="projetos" className="projetos">
       <div className="container">
@@ -69,31 +94,55 @@ export default function Projetos() {
         </div>
 
         <div className="projetos-grid">
-          {projetos.map((projeto) => (
-            <div 
-              key={projeto.id} 
-              className="projeto-card"
-            >
-              <div className="projeto-thumbnail">
-                <div className="thumbnail-placeholder">
-                  <div className="play-overlay">
-                    <FaPlay />
+          {projetos.map((projeto) => {
+            // Se for YouTube, gera a thumbnail automaticamente
+            let thumb = projeto.thumbnail;
+            if (!thumb && projeto.videoUrl && projeto.videoUrl.includes('youtube.com')) {
+              thumb = getYoutubeThumbnail(projeto.videoUrl);
+            }
+            const CardContent = (
+              <div className="projeto-card">
+                <div className="projeto-thumbnail">
+                  <div className="thumbnail-placeholder" style={{position: 'relative'}}>
+                    {thumb && (
+                      <img src={thumb} alt={projeto.title} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+                    )}
                   </div>
-                </div>
-                <div className="projeto-overlay">
-                  <div className="projeto-info">
-                    <h3>{projeto.title}</h3>
-                    <p>{projeto.description}</p>
-                    <div className="projeto-meta">
-                      <span className="category">{projeto.category}</span>
-                      <span className="duration">{projeto.duration}</span>
-                      <span className="year">{projeto.year}</span>
+                  <div className="projeto-overlay">
+                    <div className="projeto-info">
+                      <h3>{projeto.title}</h3>
+                      <p>{projeto.description}</p>
+                      <div className="projeto-meta">
+                        <span className="category">{projeto.category}</span>
+                        <span className="duration">{projeto.duration}</span>
+                        <span className="year">{projeto.year}</span>
+                      </div>
+                      {projeto.videoUrl && (
+                        <button
+                          className="btn btn-primary btn-assistir"
+                          style={{ marginTop: '1rem' }}
+                          onClick={(e) => { e.stopPropagation(); openModal(projeto.videoUrl); }}
+                        >
+                          <FaPlay style={{ marginRight: 6 }} /> Assistir
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+            return projeto.videoUrl ? (
+              <div
+                key={projeto.id}
+                style={{ cursor: 'pointer' }}
+                onClick={() => openModal(projeto.videoUrl)}
+              >
+                {CardContent}
+              </div>
+            ) : (
+              <div key={projeto.id}>{CardContent}</div>
+            );
+          })}
         </div>
 
         <div className="projetos-cta">
@@ -103,6 +152,18 @@ export default function Projetos() {
           </button>
         </div>
       </div>
+
+      {/* Modal de vídeo */}
+      {modalOpen && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <button className="modal-close" onClick={closeModal}>
+              <FaTimes />
+            </button>
+            <ReactPlayer url={videoUrl} controls width="100%" height="360px"/>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

@@ -863,3 +863,64 @@ section {
 body, html {
   overflow-x: hidden;
 }
+
+/* ===== MODAL DE VÍDEO ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: var(--color-bg-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem 1rem 1rem 1rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  position: relative;
+  max-width: 90vw;
+  width: 500px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  color: var(--color-accent);
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    width: 98vw;
+    padding: 1rem 0.2rem 0.5rem 0.2rem;
+  }
+  .modal-content iframe, .modal-content video {
+    height: 180px !important;
+  }
+}

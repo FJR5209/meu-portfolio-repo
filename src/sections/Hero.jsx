@@ -1,4 +1,5 @@
 import { Link } from 'react-scroll';
+import logo from '../assets/logo.png';
 
 export default function Hero() {
   return (
@@ -32,14 +33,8 @@ export default function Hero() {
             </Link>
           </div>
         </div>
-        <div className="hero-visual">
-          <div className="hero-video-placeholder">
-            <div className="play-button">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
-          </div>
+        <div className="hero-visual" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+          <img src={logo} alt="Logo" style={{ width: '605px', height: '605px', objectFit: 'contain' }} />
         </div>
       </div>
       <div className="scroll-indicator">
